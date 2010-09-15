@@ -12,10 +12,13 @@
 #include <stdarg.h>
 #include "Aclapi.h"
 #include "AccCtrl.h"
+#include <psapi.h>
+#include <Tlhelp32.h>
 
 #include <iostream>
 #include <vector>
 #include <list>
+#include <set>
 #include <map>
 #include <algorithm>
 #include <iterator>
@@ -24,7 +27,18 @@
 
 #include <assert.h>
 
+// Boost libraries
+// Make sure these are installed!
+// Make sure that C:\Program Files\boost\boost_1_39 (or whatever) is included in
+//    Project Properties -> Configuration Properties -> C/C++
+//    -> General -> Additional Include Directories
+
+#include <boost/assign/std/vector.hpp>
+
+#include "../resource.h"
+
 using namespace std;
+using namespace boost::assign;
 
 #define NAKED __declspec(naked)
 
@@ -33,8 +47,5 @@ typedef unsigned long ulong;
 typedef __int64 int64;
 typedef wchar_t wchar;
 
-void WriteLog( const char* format, ... );
-void DebugLog( const char* format, ... );
-
-void WriteMem(LPVOID lpAddress, LPVOID lpBuffer, SIZE_T nSize);
-void ReadMem(LPVOID lpAddress, LPVOID lpBuffer, SIZE_T nSize);
+extern bool g_isRunning;
+extern HINSTANCE g_hInstance;
